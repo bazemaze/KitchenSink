@@ -1,0 +1,19 @@
+{
+  "Html": "/KitchenSink/CallbackPage.html",
+  "SaveClick$": 0,
+  "SaveAndSpinClick$": 0,
+  "SaveAndMessageClick$": 0,
+  "SuccessMessage$": "",
+  "ErrorMessage$": "",
+  "SaveAndClientMessageClick$": 0,
+  "Items": [
+    {
+      "SaveClick$": 0,
+      "SaveAndSpinClick$": 0,
+      "SaveAndMessageClick$": 0,
+      "SuccessMessage$": "",
+      "ErrorMessage$": "",
+      "SaveAndClientMessageClick$": 0
+    }
+  ]
+}

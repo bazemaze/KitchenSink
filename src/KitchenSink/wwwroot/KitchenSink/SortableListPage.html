@@ -1,0 +1,40 @@
+﻿<link rel="import" href="/sys/polymer/polymer.html">
+
+<template>
+    <template is="dom-bind">
+        <table class="table table-striped table-hover ">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template is="dom-repeat" items="{{model.Persons}}">
+                    <tr>
+                        <td draggable="true">{{index}}</td>
+                        <td>{{item.FirstName$}}</td>
+                        <td>{{item.LastName$}}</td>
+
+                        <td><button class="btn btn-default btn-sm" value="{{item.UpDown$::click}}" onmousedown="++this.value">Down </button></td>
+                        <td><button class="btn btn-default btn-sm" value="{{item.UpDown$::click}}" onmousedown="--this.value">Up </button></td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+        <button class="btn btn-default" value="{{model.Save$::click}}" onmousedown="++this.value">Save changes</button>
+        <br>
+        <br>
+        <!--Edit names:
+        <ol start="0">
+            <template is="dom-repeat" items="{{model.Persons}}">
+                <li>
+                    <input value="{{item.FirstName$::input}}" />
+                    <input value="{{item.LastName$::input}}" />
+                </li>
+            </template>
+        </ol>-->
+    </template>
+<!--    <div>Icons made by <a href="http://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
+</template>

@@ -1,0 +1,35 @@
+{
+  "Html": "/KitchenSink/PaginationPage.html",
+  "ChangePage$": 0,
+  "NextPage$": 0,
+  "PreviousPage$": 0,
+  "LastPage$": 0,
+  "FirstPage$": 0,
+  "Library": [
+    {
+      "Author": "",
+      "Title": ""
+    }
+  ],
+
+  "EntriesPerPage$": 5,
+  "PageEntries": [
+    {
+      "Amount": 0
+    }
+  ],
+
+  "Pages": [
+    {
+      "PageNumber": 0,
+      "Active": false
+    }
+  ],
+
+  "TotalEntries": 0,
+  "TotalPages": 0,
+  "CurrentPage": 1,
+  "CurrentOffset": 0,
+  "DisableFirst": true,
+  "DisableLast": false
+}

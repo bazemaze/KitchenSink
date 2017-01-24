@@ -1,0 +1,79 @@
+﻿<template>
+    <template is="dom-bind">
+        <p class="lead">JSON's primitive value type <code>number</code> or <code>boolean</code> can be mapped to a HTML <code>button</code>.</p>
+
+        <h5>Regular button</h5>
+
+        <p>We recommend using <code>number</code> wherever possible, to take benefit of non-blocking UI enabled by Puppet's operational transformation.</p>
+
+        <p>With Polymer, there are multiple ways to increment a number on click:</p>
+
+        <ol>
+            <li>A <code>button</code> element, with inline script</li>
+            <li>A <code>button</code> element with a helper function</li>
+            <li>Any other element (<code>span</code>, etc) with a helper function</li>
+        </ol>
+
+        <pre>{{model.CarrotsReaction}}</pre>
+
+        <p class="kitchensink-add-carrots">
+            <span class="kitchensink-add-carrots__label">Add carrots:</span>
+
+            <button class="btn btn-sm btn-default" value="{{model.AddCarrots$::click}}" onmousedown="++this.value">Button (inline script)</button>
+
+            <button class="btn btn-sm btn-default" on-click="onAddCarrotsClick">Button (function)</button>
+
+            <span class="btn btn-sm btn-default" on-click="onAddCarrotsClick">Span (function)</span>
+        </p>
+
+        <h5>Switch button</h5>
+        
+        <p>When you have a special need to use the pressed state of a button, you might want to use <code>boolean</code> type for buttons.</p>
+
+        <button class="btn btn-sm btn-default kitchensink-toggle-button" pressed$="{{model.EnableCarrotEngine$}}" on-click="onEnableCarrotEngineClick">Enable carrot engine</button>
+
+        <span>{{model.CarrotEngineReaction}}</span>
+
+        <h5>Disabled button</h5>
+
+        <p>It is possible to mark button as disabled using the <code>disabled</code> boolean attribute. The below button gets disbled when the value reaches 1.</p>
+
+        <button class="btn btn-sm btn-default kitchensink-toggle-button" value="{{model.AddOneCarrot$::click}}" onmousedown="++this.value" disabled$="{{model.AddOneCarrotDisabled}}">Add carrots</button>
+
+        <span>{{model.OneCarrotReaction}}</span>
+
+        <h5>Self Disabling/Enabling Button</h5>
+
+        <p>It is also possible to make the server respond to the button click. The following buttons will stay disabled until the server responds to them being clicked.</p>
+        <div class="kitchensink-regenerating-carrots">
+            <div>
+                <button class="btn btn-sm btn-default kitchensink-toggle-button" value="{{model.TakeOneRegeneratingCarrot$::click}}" disabled="{{model.TakeOneRegeneratingCarrot$}}" onmouseup="++this.value">Take one Regenerating Carrot</button>
+                <template is="dom-if" if="{{model.TakeOneRegeneratingCarrot$}}">
+                    <p>Currently Regenerating!</p>
+                </template>
+            </div>
+
+            <div>
+                <button class="btn btn-sm btn-default kitchensink-toggle-button" value="{{model.TakeOneFakeRegeneratingCarrot$::click}}" disabled="{{model.TakeOneFakeRegeneratingCarrot$}}" onmouseup="++this.value">Take one Regenerating Carrot(with delay)</button>
+                <template is="dom-if" if="{{model.TakeOneFakeRegeneratingCarrot$}}">
+                    <p>Currently Regenerating!</p>
+                </template>
+            </div>
+        </div>
+
+    </template>
+    <script>
+        (function () {
+            var script = document._currentScript || document.currentScript;
+            var template = script.previousElementSibling;
+
+            template.onEnableCarrotEngineClick = function () {
+                template.set("model.EnableCarrotEngine$", !template.model.EnableCarrotEngine$);
+            };
+
+            template.onAddCarrotsClick = function () {
+                template.set("model.AddCarrots$", ++template.model.AddCarrots$);
+            };
+        })();
+    </script>
+</template>
