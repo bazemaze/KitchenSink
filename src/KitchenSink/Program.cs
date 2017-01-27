@@ -12,66 +12,8 @@ namespace KitchenSink
             app.Use(new HtmlFromJsonProvider());
             app.Use(new PartialToStandaloneHtmlProvider());
 
-            //Handle.GET("/KitchenSink/partial/sortablelist", () => new SortableListPage());
-            // Handle.GET("/KitchenSink/sortablelist", () => WrapPage<SortableListPage>("/KitchenSink/partial/sortablelist"));
-
-            /*My Code...*/
-            Handle.GET("/KitchenSink/sortablelist", () =>
-            {
-                return Db.Scope(() =>
-                {
-                    Db.Transact(() =>
-                    {
-                        int nrCounter = 0;
-                        var anyone = Db.SQL<Person>("SELECT p FROM Person p").First;
-                        if (anyone == null)
-                        {
-                            #region create some dummy persons
-                            new Person
-                            {
-                                FirstName = "Elvis",
-                                LastName = "Operator",
-                                Nr = nrCounter++
-                            };
-                            new Person
-                            {
-                                FirstName = "Bo",
-                                LastName = "Lean",
-                                Nr = nrCounter++
-                            };
-                            new Person
-                            {
-                                FirstName = "Lambda",
-                                LastName = "Linq",
-                                Nr = nrCounter++
-                            };
-                            new Person
-                            {
-                                FirstName = "Delegate",
-                                LastName = "009",
-                                Nr = nrCounter++
-                            };
-                            #endregion
-                        }
-                    });
-                    //ORDER BY so that we show the last saved list order when loading page
-                    QueryResultRows<Person> persons = Db.SQL<Person>("SELECT s FROM Person s ORDER BY s.Nr");
-
-                    //Populate model-view with data from DB query
-                    var json = new SortableListPage
-                    {
-                        Persons = persons
-                    };
-
-                    if (Session.Current == null)
-                    {
-                        Session.Current = new Session(SessionOptions.PatchVersioning);
-                    }
-                    json.Session = Session.Current;
-                    return json;
-                });
-            });
-            /*...ends here*/
+            Handle.GET("/KitchenSink/partial/sortablelist", () => Db.Scope(() => new SortableListPage()));
+            Handle.GET("/KitchenSink/sortablelist", () => WrapPage<SortableListPage>("/KitchenSink/partial/sortablelist"));
 
             Handle.GET("/KitchenSink/master", () =>
             {

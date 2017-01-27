@@ -1,5 +1,5 @@
 ﻿<link rel="import" href="/sys/polymer/polymer.html">
-
+<link href="../css/style.css" rel="stylesheet" />
 <template>
     <template is="dom-bind">
         <table class="table table-striped table-hover ">
@@ -13,28 +13,28 @@
             <tbody>
                 <template is="dom-repeat" items="{{model.Persons}}">
                     <tr>
-                        <td draggable="true">{{index}}</td>
-                        <td>{{item.FirstName$}}</td>
-                        <td>{{item.LastName$}}</td>
-
-                        <td><button class="btn btn-default btn-sm" value="{{item.UpDown$::click}}" onmousedown="++this.value">Down </button></td>
-                        <td><button class="btn btn-default btn-sm" value="{{item.UpDown$::click}}" onmousedown="--this.value">Up </button></td>
+                        <td>{{index}}</td>
+                        <td>{{item.FirstName}}</td>
+                        <td>{{item.LastName}}</td>
+                        <template is="dom-if" if="{{item.FirstElement}}">
+                            <td><button id="btnDown" class="btn btn-default btn-sm" select="{{item.UpDown$::click}}" onmousedown="++this.select"></button></td>
+                            <td><!--<button id="btnStop" class="btn btn-default btn-sm disabled material-icons"></button>--></td>
+                        </template>
+                        <template is="dom-if" if="{{item.MiddleElement}}">
+                            <td><button id="btnDown" class="btn btn-default btn-sm" select="{{item.UpDown$::click}}" onmousedown="++this.select"></button></td>
+                            <td><button id="btnUp" class="btn btn-default btn-sm" select="{{item.UpDown$::click}}" onmousedown="--this.select"></button></td>
+                        </template>
+                        <template is="dom-if" if="{{item.LastElement}}">
+                            <td><!--<button id="btnStop" class="btn btn-default btn-sm disabled"></button>--></td>
+                            <td><button id="btnUp" class="btn btn-default btn-sm" select="{{item.UpDown$::click}}" onmousedown="--this.select"></button></td>
+                        </template>
                     </tr>
                 </template>
             </tbody>
         </table>
-        <button class="btn btn-default" value="{{model.Save$::click}}" onmousedown="++this.value">Save changes</button>
-        <br>
-        <br>
-        <!--Edit names:
-        <ol start="0">
-            <template is="dom-repeat" items="{{model.Persons}}">
-                <li>
-                    <input value="{{item.FirstName$::input}}" />
-                    <input value="{{item.LastName$::input}}" />
-                </li>
-            </template>
-        </ol>-->
     </template>
-<!--    <div>Icons made by <a href="http://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>-->
+    <br>
+    <br>
+    <br>
+    <div>Icons made by <a href="http://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 </template>

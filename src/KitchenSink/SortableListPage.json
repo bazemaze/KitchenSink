@@ -1,15 +1,15 @@
 {
   "Html": "/KitchenSink/SortableListPage.html",
 
-  "Persons": [ //must be populated by our DB
+  "Persons": [
     {
-      "FirstName$": "",
-      "LastName$": "",
-      "Nr$": 0, //prova ta bort $ fr[n 3 f;rsta propparna
-      "UpDown$": 0
+      "FirstName": "",
+      "LastName": "",
+      "Nr": 0,
+      "UpDown$": 0,
+      "FirstElement": false,
+      "MiddleElement": false,
+      "LastElement":  false
     }
-  ],
-
-  "Save$": 0
-
+  ]
 }

@@ -195,6 +195,10 @@
     </TypedJSON>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="wwwroot\css\style.css" />
+    <Content Include="wwwroot\Icons\prohibition-symbol.svg" />
+    <Content Include="wwwroot\Icons\thumb-down.svg" />
+    <Content Include="wwwroot\Icons\thumbs-up.svg" />
     <Content Include="wwwroot\KitchenSink\AppIcon.html" />
     <Content Include="wwwroot\KitchenSink\AppMenuPage.html" />
     <Content Include="wwwroot\KitchenSink\BreadcrumbPage.html" />

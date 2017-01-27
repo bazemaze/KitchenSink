@@ -1,0 +1,26 @@
+﻿
+.btn:hover {
+    background-color: lightgrey;
+}
+
+#btnDown {
+    background-image: url('../icons/thumb-down.svg');
+    background-size: contain;
+    height: 30px;
+    width: 30px;
+}
+
+#btnUp {
+    background-image: url('../icons/thumbs-up.svg');
+    background-size: contain;
+    height: 30px;
+    width: 30px;
+}
+
+#btnStop {
+    background-image: url('../icons/prohibition-symbol.svg');
+    background-size: contain;
+    height: 30px;
+    width: 30px;
+}
+

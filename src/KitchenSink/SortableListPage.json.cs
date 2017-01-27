@@ -1,3 +1,4 @@
+using System;
 using Starcounter;
 
 namespace KitchenSink
@@ -7,18 +8,73 @@ namespace KitchenSink
     {
         public string FirstName;
         public string LastName;
-        public long Nr;
+        public int Nr;
     }
 
     partial class SortableListPage : Json
     {
+        protected override void OnData()
+        {
+            base.OnData();
+
+            CreateDataBaseIfNotExists();
+
+            SetViewModelProperties();
+        }
+
+        private static void CreateDataBaseIfNotExists()
+        {
+            var existAnyone = Db.SQL<Person>("SELECT p FROM Person p").First;
+            if (existAnyone == null)
+            {
+                int nrCounter = 0;
+                #region create some dummy persons, (0 < Nr < nmb of persons)
+                new Person
+                {
+                    FirstName = "Elvis",
+                    LastName = "Operator",
+                    Nr = nrCounter++
+                };
+                new Person
+                {
+                    FirstName = "Bo",
+                    LastName = "Lean",
+                    Nr = nrCounter++
+                };
+                new Person
+                {
+                    FirstName = "Lambda",
+                    LastName = "Linq",
+                    Nr = nrCounter++
+                };
+                new Person
+                {
+                    FirstName = "Delegate",
+                    LastName = "009",
+                    Nr = nrCounter++
+                };
+                #endregion
+            }
+        }
+
+        private void SetViewModelProperties()
+        {
+            QueryResultRows<Person> persons = Db.SQL<Person>("SELECT s FROM Person s ORDER BY s.Nr");
+            this.Persons = persons;
+
+            //Set border Persons
+            Persons[0].FirstElement = true;
+            Persons[Persons.Count - 1].LastElement = true;
+            for (int i = 1; i < Persons.Count - 1; i++)
+            {
+                Persons[i].MiddleElement = true;
+            }
+            Transaction.Commit();
+        }
+
         [SortableListPage_json.Persons]
         partial class SortableListPagePerson : Json
         {
-            protected override void OnData()
-            {
-                base.OnData();
-            }
             void Handle(Input.UpDown upDown)
             {
                 var root = (SortableListPage)this.Parent.Parent;
@@ -38,35 +94,37 @@ namespace KitchenSink
                     root.Persons.RemoveAt(ind);
                     root.Persons.Insert(ind - 1, personToMoveUp);
                 }
+
+                SetBorderPersons(root);
+                SetNewPersonsOrder(root);
+                Transaction.Commit();
             }
-        }
-        void Handle(Input.Save action)
-        {
-            for (int i = 0; i < Persons.Count; i++)
+
+            private static void SetNewPersonsOrder(SortableListPage root)
             {
-                Persons[i].Nr = i;
+                for (int i = 0; i < root.Persons.Count; i++)
+                {
+                    root.Persons[i].Nr = i;
+                }
             }
-            Transaction.Commit();
-        }
 
-        protected override void OnData()
-        {
-            base.OnData();
-            //    //QueryResultRows<Person> persons = Db.SQL<Person>("SELECT s FROM Person s");
+            private void SetBorderPersons(SortableListPage root)
+            {
+                root.Persons[0].FirstElement = true;
+                root.Persons[0].MiddleElement = false;
+                root.Persons[0].LastElement = false;
 
-            //    //SortableListPage.SortableListPagePerson person; //SortableListPage.PersonsElementJson person;
-            //    //foreach (var p in Persons)
-            //    //{
-            //    //    person = this.Persons.Add();
-            //    //    person.FirstName = p.FirstName;
-            //    //    person.LastName = p.LastName;
-            //    //    person.Nr = p.Nr;
-            //    //    //Persons.Add(person);
-            //    //}
-            //    //person = this.Persons.Add();
-            //    //person.FirstName = "XBo";
-            //    //person.LastName = "LeXan";
-            //    //person.Nr = 0;
+                root.Persons[root.Persons.Count - 1].FirstElement = false;
+                root.Persons[root.Persons.Count - 1].MiddleElement = false;
+                root.Persons[root.Persons.Count - 1].LastElement = true;
+
+                for (int i = 1; i < root.Persons.Count - 1; i++)
+                {
+                    root.Persons[i].FirstElement = false;
+                    root.Persons[i].MiddleElement = true;
+                    root.Persons[i].LastElement = false;
+                }
+            }
         }
     }
 }
